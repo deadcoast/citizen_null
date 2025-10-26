@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Punk Zine Styles */
+@layer base {
+  body {
+    @apply bg-cream text-ink-black font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-mono font-bold;
+  }
+
+  /* Remove default rounding everywhere */
+  * {
+    border-radius: 0 !important;
+  }
+}
+
+@layer components {
+  /* Paper grain texture overlay */
+  .paper-grain {
+    position: relative;
+  }
+
+  .paper-grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+
+  /* Photocopier scanlines */
+  .scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.05) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.05) 3px
+    );
+  }
+
+  /* Stamp/sticker effect */
+  .stamp {
+    @apply bg-punk-red text-cream px-4 py-2 text-xs font-bold tracking-wider border-2 border-pure-black;
+    transform: rotate(-5deg);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* Typewriter text effect */
+  .typewriter {
+    @apply font-mono;
+    letter-spacing: 0.05em;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-pure-black text-cream px-6 py-3 font-mono uppercase tracking-wider border-2 border-pure-black;
+    @apply hover:bg-punk-red hover:border-punk-red transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-cream text-pure-black px-6 py-3 font-mono uppercase tracking-wider border-2 border-pure-black;
+    @apply hover:bg-pure-black hover:text-cream transition-colors;
+  }
+
+  /* Item card base style */
+  .item-card {
+    @apply bg-cream border-2 border-pure-black;
+    @apply hover:border-punk-red hover:-translate-y-1 transition-all duration-200 cursor-pointer;
+  }
+
+  /* Rarity badges */
+  .rarity-common {
+    @apply text-mid-gray border-mid-gray;
+  }
+
+  .rarity-uncommon {
+    @apply text-green-600 border-green-600;
+  }
+
+  .rarity-rare {
+    @apply text-blue-600 border-blue-600;
+  }
+
+  .rarity-epic {
+    @apply text-purple-600 border-purple-600;
+  }
+
+  .rarity-legendary {
+    @apply text-mustard border-mustard;
+  }
+}
+
+@layer utilities {
+  /* Text utilities */
+  .text-shadow-hard {
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* Border utilities */
+  .border-thick {
+    border-width: 4px;
+  }
+
+  .border-heavy {
+    border-width: 8px;
+  }
+
+  /* Rotation utilities */
+  .rotate-slight {
+    transform: rotate(-3deg);
+  }
+
+  .rotate-stamp {
+    transform: rotate(-8deg);
+  }
+
+  /* Glitch effect (for patch numbers) */
+  @keyframes glitch {
+    0%, 90%, 100% {
+      transform: translate(0);
+    }
+    92% {
+      transform: translate(-2px, 2px);
+    }
+    94% {
+      transform: translate(2px, -2px);
+    }
+  }
+
+  .glitch-effect {
+    animation: glitch 5s infinite;
+  }
+
+  /* Pulse animation (for item pins) */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.3);
+    }
+  }
+
+  .pulse-pin {
+    animation: pulse 2s infinite;
+  }
+}
+
+/* Custom Scrollbar Styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #1a1a1c;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #212124;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #2a2a2d;
+}
+
+/* Hide horizontal scrollbar */
+.overflow-y-auto {
+  overflow-x: hidden;
+}
+
+/* Print styles (for actual printable zine pages) */
+@media print {
+  body {
+    @apply bg-white text-black;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .paper-grain::before {
+    opacity: 0.3;
+  }
+}

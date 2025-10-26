@@ -1,0 +1,19 @@
+{
+    "MD003": { "style": "atx" },
+    "MD007": { "indent": 2 },
+    "MD010": false,
+    "MD013": false,
+    "MD022": { "lines_above": 0, "lines_below": 0 },
+    "MD029": { "style": "ordered" },
+    "MD031": false,
+    "MD032": false,
+    "MD033": {
+        "allowed_elements": ["div", "span", "br", "hr", "details", "summary"]
+    },
+    "MD036": false,
+    "MD040": false,
+    "MD051": {
+        "ignore_case": false,
+        "ignored_pattern": ""
+    }
+}

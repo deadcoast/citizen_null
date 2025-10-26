@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chekk"
+version = "0.1.1"
+description = "Language `chekk` — a native Python CLI to verify installed code languages (Python, JavaScript/Node, TypeScript, React) with a Rich-powered UI."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name = "deadcoast" }
+]
+dependencies = [
+  "rich>=13,<14"
+]
+
+# Expose the `chekk` command globally after install
+[project.scripts]
+chekk = "chekk:main"
+
+# Single-module distribution (the CLI file is chekk.py at repo root)
+[tool.setuptools]
+py-modules = ["chekk"]

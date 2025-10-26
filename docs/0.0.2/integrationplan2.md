@@ -1,0 +1,40 @@
+# Plan
+
+- Add hero banner section with massive patch number and glitchy effects
+- Create glitchy text animation for patch number
+- Add scanning line effect across hero section
+- Implement tape marks visual elements in modal corners
+- Add more photocopier artifacts (streaks, spots, edge darkness)
+- Add map view button in item modal location section
+- Implement sorting options (by name, price, rarity, date)
+- Implement real image support with halftone filter and torn edges
+- Add handwritten-style font for notes and annotations
+- Add fold/crease line textures to major sections
+- Create more diagonal/rotated text elements throughout
+- Add pagination or infinite scroll for item grid
+- Building and verifying project compiles
+- Building production bundle
+- Create admin panel for adding/editing items
+- Implement authentication system for admin access
+- Create print stylesheet for printable zine pages
+- Add share functionality for individual items
+- Implement hamburger menu for mobile filter collapse
+- Add favorites/bookmark system for items
+- Implement item comparison feature (side-by-side)
+
+- Add map interface for item locations with photocopied star chart aesthetic
+- Enhance photocopier artifacts (streaks, spots, edge darkness, toner marks)
+- Add more diagonal/rotated text elements throughout the design
+- Implement collage-style overlapping elements on item grid
+- Add torn/irregular edges to more elements using clip-path
+- Enhance text with ink bleed effect (fuzzy edges)
+- Add ASCII-inspired angular icons throughout interface
+- Implement hand-drawn box elements around important sections
+- Add marker-style handwritten annotations for notes sections
+- Create varied card sizes in grid (feature some items)
+- Add terminal-style loading states with blinking cursor
+- Enhance hero section with hand-drawn arrow or diagonal strip
+- Add visible coordinate grid to backgrounds
+- Implement prefers-reduced-motion for glitch effects
+- Add newsprint-style texture variations
+- Create custom error states with stamped REJECTED aesthetic

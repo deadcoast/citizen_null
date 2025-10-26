@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Zine - Stanton System Map</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #faf7f0;
+            padding: 20px;
+        }
+
+        .map-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .map-header {
+            background: #faf7f0;
+            color: #1a1a1a;
+            padding: 20px;
+            border: 4px solid #000;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .map-header h1 {
+            font-size: 36px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .map-header p {
+            font-size: 12px;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            height: 700px;
+            background: #000;
+            border: 4px solid #1a1a1a;
+            overflow: hidden;
+        }
+
+        /* Star field background */
+        .starfield {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(1px 1px at 20% 30%, white, transparent),
+                radial-gradient(1px 1px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 80% 10%, white, transparent),
+                radial-gradient(1px 1px at 90% 60%, white, transparent),
+                radial-gradient(1px 1px at 33% 50%, white, transparent),
+                radial-gradient(1px 1px at 52% 20%, white, transparent),
+                radial-gradient(1px 1px at 15% 80%, white, transparent);
+            background-size: 200% 200%;
+            background-position: 0% 0%;
+            opacity: 0.4;
+        }
+
+        /* Map canvas */
+        .map-canvas {
+            position: absolute;
+            inset: 0;
+        }
+
+        /* Controls */
+        .map-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .map-btn {
+            background: #1a1a1a;
+            border: 2px solid #2b2b2b;
+            color: #faf7f0;
+            padding: 10px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .map-btn:hover {
+            border-color: #8b0000;
+            color: #8b0000;
+            background: #2b2b2b;
+        }
+
+        .map-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* Legend */
+        .map-legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid #2b2b2b;
+            padding: 15px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            z-index: 100;
+        }
+
+        .legend-title {
+            color: #8b0000;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px 0;
+        }
+
+        .legend-icon {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* Planet tooltip */
+        .planet-tooltip {
+            position: absolute;
+            background: #1a1a1a;
+            border: 2px solid #8b0000;
+            padding: 15px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 200;
+            min-width: 200px;
+            transform: translate(-50%, -100%);
+            margin-top: -10px;
+        }
+
+        .tooltip-name {
+            font-weight: bold;
+            font-size: 14px;
+            color: #8b0000;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tooltip-info {
+            color: #999;
+            margin: 3px 0;
+        }
+
+        /* Station popup */
+        .station-popup {
+            position: absolute;
+            background: #faf7f0;
+            border: 3px solid #000;
+            padding: 15px;
+            color: #1a1a1a;
+            font-size: 12px;
+            z-index: 200;
+            min-width: 250px;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .station-popup h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .station-items {
+            margin: 10px 0;
+        }
+
+        .station-item {
+            padding: 5px 0;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .station-item:hover {
+            color: #8b0000;
+            background: rgba(139, 0, 0, 0.1);
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #8b0000;
+            color: #faf7f0;
+            border: none;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .close-popup:hover {
+            background: #a83232;
+        }
+
+        /* System info */
+        .system-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid #2b2b2b;
+            padding: 15px;
+            font-size: 11px;
+            z-index: 100;
+        }
+
+        .system-info-title {
+            color: #8b0000;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .system-info-line {
+            color: #999;
+            margin: 3px 0;
+            letter-spacing: 1px;
+        }
+
+        /* Pulsing animation for item pins */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.3); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Scan line effect */
+        .scanline {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 255, 255, 0.02) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useRef, useEffect } = React;
+
+        // Sample data for Stanton system
+        const stantonData = {
+            name: "Stanton",
+            center: { x: 600, y: 350 },
+            planets: [
+                {
+                    id: "hurston",
+                    name: "Hurston",
+                    x: 400,
+                    y: 250,
+                    radius: 35,
+                    orbitRadius: 180,
+                    color: "#8B4513",
+                    description: "Industrial world",
+                    stations: [
+                        {
+                            name: "Lorville",
+                            items: ["Devastator Shotgun", "Combat Armor MK2", "RSI Mantis"]
+                        },
+                        {
+                            name: "Everus Harbor",
+                            items: ["Mining Laser", "Cargo Pods"]
+                        }
+                    ]
+                },
+                {
+                    id: "crusader",
+                    name: "Crusader",
+                    x: 700,
+                    y: 200,
+                    radius: 45,
+                    orbitRadius: 280,
+                    color: "#CC5500",
+                    description: "Gas giant",
+                    stations: [
+                        {
+                            name: "Port Olisar",
+                            items: ["F4-AR Rifle", "Drake Cutlass Components"]
+                        },
+                        {
+                            name: "Seraphim Station",
+                            items: ["Rare Ship Paint", "Limited Armor Set"]
+                        }
+                    ]
+                },
+                {
+                    id: "arccorp",
+                    name: "ArcCorp",
+                    x: 500,
+                    y: 450,
+                    radius: 30,
+                    orbitRadius: 220,
+                    color: "#666666",
+                    description: "City planet",
+                    stations: [
+                        {
+                            name: "Area18",
+                            items: ["Kastak Arms Pistol", "Urban Armor"]
+                        }
+                    ]
+                },
+                {
+                    id: "microtech",
+                    name: "microTech",
+                    x: 750,
+                    y: 450,
+                    radius: 32,
+                    orbitRadius: 300,
+                    color: "#87CEEB",
+                    description: "Frozen world",
+                    stations: [
+                        {
+                            name: "New Babbage",
+                            items: ["Cold Weather Gear", "Pyro Navigation Charts"]
+                        },
+                        {
+                            name: "Port Tressler",
+                            items: ["Mining Equipment", "Ship Components"]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        function StantonMap() {
+            const [zoomLevel, setZoomLevel] = useState(1);
+            const [selectedPlanet, setSelectedPlanet] = useState(null);
+            const [hoveredPlanet, setHoveredPlanet] = useState(null);
+            const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+            const [selectedStation, setSelectedStation] = useState(null);
+            const [stationPopupPos, setStationPopupPos] = useState({ x: 0, y: 0 });
+            const svgRef = useRef(null);
+
+            const handleZoomIn = () => {
+                setZoomLevel(prev => Math.min(prev + 0.3, 2.5));
+            };
+
+            const handleZoomOut = () => {
+                setZoomLevel(prev => Math.max(prev - 0.3, 0.5));
+            };
+
+            const handleReset = () => {
+                setZoomLevel(1);
+                setSelectedPlanet(null);
+                setSelectedStation(null);
+            };
+
+            const handlePlanetClick = (planet) => {
+                setSelectedPlanet(planet.id === selectedPlanet ? null : planet.id);
+                setSelectedStation(null);
+            };
+
+            const handlePlanetHover = (planet, event) => {
+                setHoveredPlanet(planet);
+                if (svgRef.current) {
+                    const rect = svgRef.current.getBoundingClientRect();
+                    setTooltipPos({
+                        x: event.clientX - rect.left,
+                        y: event.clientY - rect.top
+                    });
+                }
+            };
+
+            const handleStationClick = (station, planet, event) => {
+                event.stopPropagation();
+                setSelectedStation({ ...station, planet: planet.name });
+                if (svgRef.current) {
+                    const rect = svgRef.current.getBoundingClientRect();
+                    setStationPopupPos({
+                        x: event.clientX - rect.left,
+                        y: event.clientY - rect.top
+                    });
+                }
+            };
+
+            return (
+                <div className="map-container">
+                    <div className="map-header">
+                        <h1>// STANTON SYSTEM MAP</h1>
+                        <p>INTERACTIVE LOCATION DATABASE // UNAUTHORIZED INTEL NETWORK</p>
+                    </div>
+
+                    <div className="map-wrapper">
+                        <div className="starfield"></div>
+                        <div className="scanline"></div>
+
+                        {/* System Info */}
+                        <div className="system-info">
+                            <div className="system-info-title">SYSTEM: STANTON</div>
+                            <div className="system-info-line">JURISDICTION: UEE</div>
+                            <div className="system-info-line">PLANETS: 4 MAJOR</div>
+                            <div className="system-info-line">STATUS: ACTIVE</div>
+                            <div className="system-info-line">ZOOM: {(zoomLevel * 100).toFixed(0)}%</div>
+                        </div>
+
+                        {/* Controls */}
+                        <div className="map-controls">
+                            <button className="map-btn" onClick={handleZoomIn}>+ ZOOM IN</button>
+                            <button className="map-btn" onClick={handleZoomOut}>- ZOOM OUT</button>
+                            <button className="map-btn" onClick={handleReset}>↻ RESET</button>
+                        </div>
+
+                        {/* Legend */}
+                        <div className="map-legend">
+                            <div className="legend-title">Legend</div>
+                            <div className="legend-item">
+                                <svg className="legend-icon" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="8" fill="#8B4513" stroke="#00ffff" strokeWidth="1" />
+                                </svg>
+                                <span>Planet</span>
+                            </div>
+                            <div className="legend-item">
+                                <svg className="legend-icon" viewBox="0 0 20 20">
+                                    <rect x="6" y="6" width="8" height="8" fill="#999" stroke="#00ffff" strokeWidth="1" transform="rotate(45 10 10)" />
+                                </svg>
+                                <span>Station</span>
+                            </div>
+                            <div className="legend-item">
+                                <svg className="legend-icon" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="4" fill="#8b0000" />
+                                </svg>
+                                <span>Item Location</span>
+                            </div>
+                        </div>
+
+                        {/* SVG Map */}
+                        <svg 
+                            ref={svgRef}
+                            className="map-canvas" 
+                            viewBox="0 0 1200 700"
+                            style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'center' }}
+                        >
+                            {/* Grid overlay */}
+                            <defs>
+                                <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+                                    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#00ffff" strokeWidth="0.3" opacity="0.2"/>
+                                </pattern>
+                                
+                                {/* Glow effect */}
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <rect width="100%" height="100%" fill="url(#grid)" />
+
+                            {/* Central star (sun) */}
+                            <circle 
+                                cx={stantonData.center.x} 
+                                cy={stantonData.center.y} 
+                                r="15" 
+                                fill="#ffff00"
+                                opacity="0.8"
+                                filter="url(#glow)"
+                            />
+                            <text 
+                                x={stantonData.center.x} 
+                                y={stantonData.center.y - 25}
+                                fill="#ffff00"
+                                fontSize="12"
+                                textAnchor="middle"
+                                opacity="0.7"
+                            >
+                                STANTON (STAR)
+                            </text>
+
+                            {/* Planets and orbits */}
+                            {stantonData.planets.map((planet) => {
+                                const isSelected = selectedPlanet === planet.id;
+                                
+                                return (
+                                    <g key={planet.id}>
+                                        {/* Orbit line */}
+                                        <circle 
+                                            cx={stantonData.center.x} 
+                                            cy={stantonData.center.y} 
+                                            r={planet.orbitRadius}
+                                            fill="none"
+                                            stroke="#00ffff"
+                                            strokeWidth="1"
+                                            strokeDasharray="5,5"
+                                            opacity="0.2"
+                                        />
+
+                                        {/* Planet */}
+                                        <circle 
+                                            cx={planet.x} 
+                                            cy={planet.y} 
+                                            r={planet.radius}
+                                            fill={planet.color}
+                                            stroke={isSelected ? "#8b0000" : "#00ffff"}
+                                            strokeWidth={isSelected ? "3" : "2"}
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => handlePlanetClick(planet)}
+                                            onMouseEnter={(e) => handlePlanetHover(planet, e)}
+                                            onMouseLeave={() => setHoveredPlanet(null)}
+                                            opacity={isSelected ? 1 : 0.8}
+                                        />
+
+                                        {/* Planet name */}
+                                        <text 
+                                            x={planet.x} 
+                                            y={planet.y + planet.radius + 20}
+                                            fill="#00ffff"
+                                            fontSize="14"
+                                            fontWeight="bold"
+                                            textAnchor="middle"
+                                            style={{ pointerEvents: 'none' }}
+                                        >
+                                            {planet.name.toUpperCase()}
+                                        </text>
+
+                                        {/* Stations (shown when planet selected) */}
+                                        {isSelected && planet.stations.map((station, idx) => {
+                                            const angle = (idx * (360 / planet.stations.length)) * (Math.PI / 180);
+                                            const stationX = planet.x + Math.cos(angle) * (planet.radius + 30);
+                                            const stationY = planet.y + Math.sin(angle) * (planet.radius + 30);
+
+                                            return (
+                                                <g key={station.name}>
+                                                    {/* Line to station */}
+                                                    <line 
+                                                        x1={planet.x} 
+                                                        y1={planet.y} 
+                                                        x2={stationX} 
+                                                        y2={stationY}
+                                                        stroke="#999"
+                                                        strokeWidth="1"
+                                                        strokeDasharray="2,2"
+                                                        opacity="0.5"
+                                                    />
+
+                                                    {/* Station marker (diamond) */}
+                                                    <rect 
+                                                        x={stationX - 5} 
+                                                        y={stationY - 5}
+                                                        width="10"
+                                                        height="10"
+                                                        fill="#999"
+                                                        stroke="#00ffff"
+                                                        strokeWidth="1"
+                                                        transform={`rotate(45 ${stationX} ${stationY})`}
+                                                        style={{ cursor: 'pointer' }}
+                                                        onClick={(e) => handleStationClick(station, planet, e)}
+                                                    />
+
+                                                    {/* Station name */}
+                                                    <text 
+                                                        x={stationX} 
+                                                        y={stationY + 15}
+                                                        fill="#999"
+                                                        fontSize="10"
+                                                        textAnchor="middle"
+                                                        style={{ pointerEvents: 'none' }}
+                                                    >
+                                                        {station.name}
+                                                    </text>
+
+                                                    {/* Item pins */}
+                                                    {station.items.slice(0, 2).map((item, itemIdx) => {
+                                                        const pinAngle = angle + (itemIdx * 20 - 10) * (Math.PI / 180);
+                                                        const pinX = stationX + Math.cos(pinAngle) * 15;
+                                                        const pinY = stationY + Math.sin(pinAngle) * 15;
+
+                                                        return (
+                                                            <circle
+                                                                key={item}
+                                                                cx={pinX}
+                                                                cy={pinY}
+                                                                r="3"
+                                                                fill="#8b0000"
+                                                                className="pulse"
+                                                                style={{ cursor: 'pointer' }}
+                                                            />
+                                                        );
+                                                    })}
+                                                </g>
+                                            );
+                                        })}
+                                    </g>
+                                );
+                            })}
+                        </svg>
+
+                        {/* Planet Tooltip */}
+                        {hoveredPlanet && !selectedStation && (
+                            <div 
+                                className="planet-tooltip"
+                                style={{ 
+                                    left: `${tooltipPos.x}px`, 
+                                    top: `${tooltipPos.y}px` 
+                                }}
+                            >
+                                <div className="tooltip-name">{hoveredPlanet.name}</div>
+                                <div className="tooltip-info">{hoveredPlanet.description}</div>
+                                <div className="tooltip-info">Stations: {hoveredPlanet.stations.length}</div>
+                                <div className="tooltip-info" style={{ marginTop: '8px', fontSize: '10px', color: '#666' }}>
+                                    CLICK TO VIEW STATIONS
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Station Popup */}
+                        {selectedStation && (
+                            <div 
+                                className="station-popup"
+                                style={{ 
+                                    left: `${stationPopupPos.x}px`, 
+                                    top: `${stationPopupPos.y}px` 
+                                }}
+                            >
+                                <button className="close-popup" onClick={() => setSelectedStation(null)}>×</button>
+                                <h3>{selectedStation.name}</h3>
+                                <div style={{ fontSize: '11px', color: '#666', marginBottom: '10px' }}>
+                                    {selectedStation.planet} System
+                                </div>
+                                <div className="station-items">
+                                    <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
+                                        ITEMS AVAILABLE ({selectedStation.items.length}):
+                                    </div>
+                                    {selectedStation.items.map((item, idx) => (
+                                        <div key={idx} className="station-item">
+                                             {item}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div style={{ marginTop: '15px', fontSize: '10px', color: '#999' }}>
+                                    Click item to view details
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<StantonMap />, document.getElementById('root'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+[
+  {
+    "id": "001",
+    "name": "Devastator Shotgun",
+    "location": { "station": "Lorville" },
+    "rarity": "rare",
+    "description": "High-damage close combat weapon",
+    "category": "weapons",
+    "value": 45000
+  },
+  {
+    "id": "002",
+    "name": "Combat Armor MK2",
+    "location": { "station": "Lorville" },
+    "rarity": "uncommon",
+    "description": "Military-grade protective gear",
+    "category": "armor",
+    "value": 12000
+  },
+  {
+    "id": "003",
+    "name": "RSI Mantis",
+    "location": { "station": "Lorville" },
+    "rarity": "epic",
+    "description": "Quantum interdiction ship",
+    "category": "ships",
+    "value": 150000
+  },
+  {
+    "id": "004",
+    "name": "Mining Laser",
+    "location": { "station": "Everus Harbor" },
+    "rarity": "common",
+    "description": "Basic mining equipment",
+    "category": "tools",
+    "value": 2500
+  },
+  {
+    "id": "005",
+    "name": "Cargo Pods",
+    "location": { "station": "Everus Harbor" },
+    "rarity": "common",
+    "description": "Expandable storage containers",
+    "category": "equipment",
+    "value": 800
+  },
+  {
+    "id": "006",
+    "name": "F4-AR Rifle",
+    "location": { "station": "Port Olisar" },
+    "rarity": "rare",
+    "description": "Assault rifle with high accuracy",
+    "category": "weapons",
+    "value": 38000
+  },
+  {
+    "id": "007",
+    "name": "Drake Cutlass Components",
+    "location": { "station": "Port Olisar" },
+    "rarity": "uncommon",
+    "description": "Ship upgrade parts",
+    "category": "ship_parts",
+    "value": 15000
+  },
+  {
+    "id": "008",
+    "name": "Rare Ship Paint",
+    "location": { "station": "Seraphim Station" },
+    "rarity": "legendary",
+    "description": "Limited edition ship customization",
+    "category": "cosmetics",
+    "value": 75000
+  },
+  {
+    "id": "009",
+    "name": "Limited Armor Set",
+    "location": { "station": "Seraphim Station" },
+    "rarity": "epic",
+    "description": "Exclusive protective gear",
+    "category": "armor",
+    "value": 85000
+  },
+  {
+    "id": "010",
+    "name": "Kastak Arms Pistol",
+    "location": { "station": "Area18" },
+    "rarity": "uncommon",
+    "description": "Reliable sidearm",
+    "category": "weapons",
+    "value": 8500
+  },
+  {
+    "id": "011",
+    "name": "Urban Armor",
+    "location": { "station": "Area18" },
+    "rarity": "common",
+    "description": "City-appropriate protective gear",
+    "category": "armor",
+    "value": 3500
+  },
+  {
+    "id": "012",
+    "name": "Cold Weather Gear",
+    "location": { "station": "New Babbage" },
+    "rarity": "common",
+    "description": "Survival equipment for harsh climates",
+    "category": "equipment",
+    "value": 1200
+  },
+  {
+    "id": "013",
+    "name": "Pyro Navigation Charts",
+    "location": { "station": "New Babbage" },
+    "rarity": "rare",
+    "description": "Maps for dangerous Pyro system",
+    "category": "data",
+    "value": 25000
+  },
+  {
+    "id": "014",
+    "name": "Mining Equipment",
+    "location": { "station": "Port Tressler" },
+    "rarity": "uncommon",
+    "description": "Advanced extraction tools",
+    "category": "tools",
+    "value": 18000
+  },
+  {
+    "id": "015",
+    "name": "Ship Components",
+    "location": { "station": "Port Tressler" },
+    "rarity": "common",
+    "description": "General ship maintenance parts",
+    "category": "ship_parts",
+    "value": 5000
+  },
+  {
+    "id": "016",
+    "name": "Quantum Drive Upgrade",
+    "location": { "station": "Baijini Point" },
+    "rarity": "epic",
+    "description": "Advanced quantum travel technology",
+    "category": "ship_parts",
+    "value": 95000
+  },
+  {
+    "id": "017",
+    "name": "Stealth Cloaking Device",
+    "location": { "station": "GrimHEX" },
+    "rarity": "legendary",
+    "description": "Illegal stealth technology",
+    "category": "illegal",
+    "value": 200000
+  },
+  {
+    "id": "018",
+    "name": "Combat Knife",
+    "location": { "station": "GrimHEX" },
+    "rarity": "uncommon",
+    "description": "Close combat melee weapon",
+    "category": "weapons",
+    "value": 1200
+  }
+]

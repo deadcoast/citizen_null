@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CITIZEN ZINE - Splash Banner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+
+        .banner-container {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            height: 600px;
+            background: #faf7f0;
+            border: 8px solid #000;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Paper grain texture */
+        .grain-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.15;
+            pointer-events: none;
+            mix-blend-mode: multiply;
+        }
+
+        /* Scan lines effect */
+        .scanlines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.05) 0px,
+                transparent 1px,
+                transparent 2px,
+                rgba(0, 0, 0, 0.05) 3px
+            );
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(20px); }
+        }
+
+        /* Technical grid overlay */
+        .tech-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* Main content */
+        .content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 40px;
+        }
+
+        /* Top HUD bar */
+        .hud-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #1a1a1a;
+            border-bottom: 3px solid #8b0000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-size: 11px;
+            color: #faf7f0;
+            letter-spacing: 2px;
+        }
+
+        .hud-top::before {
+            content: " UNAUTHORIZED BROADCAST";
+            opacity: 0.7;
+        }
+
+        .hud-top::after {
+            content: "STANTON SYSTEM // 2954.10.21";
+            opacity: 0.7;
+        }
+
+        /* Bottom HUD bar */
+        .hud-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 35px;
+            background: #1a1a1a;
+            border-top: 2px solid #2b2b2b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        /* Corner brackets (HUD elements) */
+        .corner {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 2px solid #2b2b2b;
+        }
+
+        .corner.tl { top: 50px; left: 10px; border-right: none; border-bottom: none; }
+        .corner.tr { top: 50px; right: 10px; border-left: none; border-bottom: none; }
+        .corner.bl { bottom: 45px; left: 10px; border-right: none; border-top: none; }
+        .corner.br { bottom: 45px; right: 10px; border-left: none; border-top: none; }
+
+        /* Main title */
+        .title {
+            font-size: clamp(60px, 10vw, 140px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: #000;
+            text-transform: uppercase;
+            line-height: 0.9;
+            text-align: center;
+            position: relative;
+            margin-bottom: 20px;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        .title-line-1 {
+            display: block;
+            position: relative;
+        }
+
+        .title-line-2 {
+            display: block;
+            margin-left: 40px;
+            position: relative;
+        }
+
+        /* Glitch effect on title */
+        @keyframes glitch {
+            0%, 90%, 100% {
+                transform: translate(0);
+            }
+            92% {
+                transform: translate(-2px, 2px);
+            }
+            94% {
+                transform: translate(2px, -2px);
+            }
+        }
+
+        .title-line-1::before {
+            content: 'CITIZEN';
+            position: absolute;
+            left: 0;
+            color: #8b0000;
+            opacity: 0.7;
+            animation: glitch 5s infinite;
+            clip-path: inset(0 0 90% 0);
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: clamp(14px, 2vw, 20px);
+            color: #1a1a1a;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: 2px solid #1a1a1a;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.3);
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        /* Data stamps */
+        .stamp {
+            position: absolute;
+            background: #8b0000;
+            color: #faf7f0;
+            padding: 8px 16px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transform: rotate(-5deg);
+            border: 2px solid #000;
+            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .stamp.new {
+            top: 80px;
+            right: 100px;
+            transform: rotate(8deg);
+        }
+
+        .stamp.classified {
+            bottom: 80px;
+            left: 80px;
+            transform: rotate(-12deg);
+            background: #000;
+            color: #8b0000;
+        }
+
+        /* Info bar */
+        .info-bar {
+            display: flex;
+            gap: 30px;
+            font-size: 13px;
+            color: #2b2b2b;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .info-item::before {
+            content: "";
+            color: #8b0000;
+            font-size: 18px;
+        }
+
+        /* Photocopier artifacts */
+        .artifact {
+            position: absolute;
+            background: #000;
+            opacity: 0.15;
+        }
+
+        .artifact-1 {
+            width: 120px;
+            height: 2px;
+            top: 200px;
+            left: 0;
+        }
+
+        .artifact-2 {
+            width: 3px;
+            height: 400px;
+            right: 40px;
+            top: 50px;
+        }
+
+        .artifact-3 {
+            width: 80px;
+            height: 1px;
+            bottom: 180px;
+            left: 50px;
+        }
+
+        /* Coordinate system */
+        .coordinates {
+            position: absolute;
+            bottom: 50px;
+            right: 20px;
+            font-size: 10px;
+            color: #666;
+            text-align: right;
+            line-height: 1.4;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .banner-container {
+                height: 400px;
+            }
+
+            .stamp.new,
+            .stamp.classified {
+                display: none;
+            }
+
+            .info-bar {
+                flex-direction: column;
+                gap: 10px;
+                font-size: 11px;
+            }
+
+            .corner {
+                width: 30px;
+                height: 30px;
+            }
+
+            .hud-top::before,
+            .hud-top::after {
+                font-size: 9px;
+            }
+        }
+
+        /* Red accent line */
+        .accent-line {
+            width: 200px;
+            height: 4px;
+            background: #8b0000;
+            margin: 15px 0;
+        }
+
+        /* Technical readout */
+        .tech-readout {
+            position: absolute;
+            top: 55px;
+            left: 20px;
+            font-size: 9px;
+            color: #666;
+            letter-spacing: 1px;
+            line-height: 1.6;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner-container">
+        <!-- Texture overlays -->
+        <div class="grain-overlay"></div>
+        <div class="scanlines"></div>
+        <div class="tech-grid"></div>
+
+        <!-- HUD elements -->
+        <div class="hud-top"></div>
+        <div class="hud-bottom">
+            FOR CITIZENS, BY CITIZENS // INDEPENDENT INTEL NETWORK // NO CORPORATE FILTERS
+        </div>
+
+        <!-- Corner brackets -->
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+
+        <!-- Photocopier artifacts -->
+        <div class="artifact artifact-1"></div>
+        <div class="artifact artifact-2"></div>
+        <div class="artifact artifact-3"></div>
+
+        <!-- Tech readout -->
+        <div class="tech-readout">
+            DATASTREAM: ACTIVE<br>
+            ENCRYPTION: NONE<br>
+            SOURCE: INDEPENDENT
+        </div>
+
+        <!-- Stamps -->
+        <div class="stamp new">PATCH 3.23</div>
+        <div class="stamp classified">UNCENSORED</div>
+
+        <!-- Coordinates -->
+        <div class="coordinates">
+            STANTON SYSTEM<br>
+            BROADCAST ORIGIN: UNKNOWN<br>
+            FREQ: 420.69 MHz
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            <h1 class="title">
+                <span class="title-line-1">CITIZEN</span>
+                <span class="title-line-2">ZINE</span>
+            </h1>
+
+            <div class="accent-line"></div>
+
+            <div class="subtitle">Your Patch Survival Guide</div>
+
+            <div class="info-bar">
+                <div class="info-item">PATCH SPECIFIC UPDATES</div>
+                <div class="info-item">WHAT TO LOOK FOR</div>
+                <div class="info-item">WHERE TO FIND IT</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
