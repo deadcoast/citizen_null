@@ -1,12 +1,12 @@
-# 🎨 MAP VISUAL UPGRADE COMPLETE
+#  MAP VISUAL UPGRADE COMPLETE
 
-## ✅ **FIXED CLICK RESPONSIVENESS & MODERNIZED AESTHETIC**
+##  **FIXED CLICK RESPONSIVENESS & MODERNIZED AESTHETIC**
 
 Your Star Citizen map has been successfully updated to match your website's modern aesthetic and fixed the planet click responsiveness issue!
 
 ---
 
-## 🔧 **CLICK RESPONSIVENESS FIXED**
+##  **CLICK RESPONSIVENESS FIXED**
 
 ### **Problem Solved**
 - **Issue**: Planets were only clickable on the outline, not the inner planet area
@@ -30,7 +30,7 @@ Your Star Citizen map has been successfully updated to match your website's mode
 
 ---
 
-## 🎨 **MODERN AESTHETIC INTEGRATION**
+##  **MODERN AESTHETIC INTEGRATION**
 
 ### **Color Scheme Updated**
 - **Background**: Changed from black to modern zinc gradient (`from-zinc-950 via-zinc-900 to-zinc-800`)
@@ -63,7 +63,7 @@ Your Star Citizen map has been successfully updated to match your website's mode
 
 ---
 
-## 🎯 **VISUAL CONSISTENCY ACHIEVED**
+##  **VISUAL CONSISTENCY ACHIEVED**
 
 ### **Matches Your Website Design**
 - **Glass Effects**: Applied `glass-effect` class throughout
@@ -80,7 +80,7 @@ Your Star Citizen map has been successfully updated to match your website's mode
 
 ---
 
-## 🚀 **TECHNICAL IMPROVEMENTS**
+##  **TECHNICAL IMPROVEMENTS**
 
 ### **Performance Optimized**
 - **Efficient Rendering**: SVG-based for better performance
@@ -96,22 +96,22 @@ Your Star Citizen map has been successfully updated to match your website's mode
 
 ---
 
-## 🎉 **RESULT**
+##  **RESULT**
 
 Your Star Citizen map now features:
 
-✅ **Full Planet Clickability** - Entire planet areas are responsive to clicks
-✅ **Modern Aesthetic** - Matches your website's zinc color scheme and glass effects
-✅ **Professional Styling** - Consistent with your header, hero, and item card components
-✅ **Enhanced Visuals** - Modern gradients, colors, and effects
-✅ **Smooth Interactions** - Professional animations and transitions
-✅ **Mobile Optimized** - Works perfectly on all devices
+ **Full Planet Clickability** - Entire planet areas are responsive to clicks
+ **Modern Aesthetic** - Matches your website's zinc color scheme and glass effects
+ **Professional Styling** - Consistent with your header, hero, and item card components
+ **Enhanced Visuals** - Modern gradients, colors, and effects
+ **Smooth Interactions** - Professional animations and transitions
+ **Mobile Optimized** - Works perfectly on all devices
 
 **The map now looks like it was designed as part of your main website, with consistent styling and professional interactions!**
 
 ---
 
-## 🔧 **HOW TO USE**
+##  **HOW TO USE**
 
 **Start the enhanced map:**
 ```bash

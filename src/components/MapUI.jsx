@@ -311,7 +311,7 @@ export default function MapUI({
                     toast.success(`Item: ${item.name || item} selected!`);
                   }}
                 >
-                  ▪ {item.name || item}
+                   {item.name || item}
                 </motion.div>
               ))}
             </div>

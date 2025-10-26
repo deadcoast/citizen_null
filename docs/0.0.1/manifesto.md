@@ -153,16 +153,16 @@ Think of your screen as a cork board where you're pinning things:
 
 **Visual Structure:**
 ```
-┌─────────────────────────┐
-│     [PHOTO - ROUGH]     │ ← Halftone effect, torn edges
-│       EDGE CROP         │
-├─────────────────────────┤
-│  ITEM NAME (BOLD)       │
-│  Location (small)       │
-│  ▪ How to get (bullet)  │
-│                         │
-│  [RARE] or [NEW!] stamp │ ← Rotated, red ink
-└─────────────────────────┘
+
+     [PHOTO - ROUGH]      ← Halftone effect, torn edges
+       EDGE CROP         
+
+  ITEM NAME (BOLD)       
+  Location (small)       
+   How to get (bullet)  
+                         
+  [RARE] or [NEW!] stamp  ← Rotated, red ink
+
 ```
 
 **Design Notes:**
@@ -177,9 +177,9 @@ Think of your screen as a cork board where you're pinning things:
 
 **Visual Structure:**
 ```
-────────────────────────────────────────
-[SEARCH____________] [CAT▼] [RARE▼] [X]
-────────────────────────────────────────
+
+[SEARCH____________] [CAT] [RARE] [X]
+
 ```
 
 **Design Notes:**
@@ -187,32 +187,32 @@ Think of your screen as a cork board where you're pinning things:
 - Black border top and bottom
 - White/cream background
 - All caps labels
-- Simple dropdown arrows (ASCII style: ▼)
+- Simple dropdown arrows (ASCII style: )
 - "X" to clear is literal X character
 
 ### Modal / Detail View
 
 **Visual Structure:**
 ```
-████████████████████████████████████
-█ [X]                ITEM NAME     █
-████████████████████████████████████
-█                                  █
-█  [LARGE IMAGE]     STATS         █
-█   halftone         ───────────   █
-█                    Damage: 850   █
-█                    Rate: 120     █
-█                                  █
-█   ┌─────────────────────────┐    █
-█   │ LOCATION                │    █
-█   │ Hurston - Lorville      │    █
-█   │ [VIEW MAP →]            │    █
-█   └─────────────────────────┘    █
-█                                  █
-█  HOW TO OBTAIN:                  █
-█  Purchase from shop in CBD...    █
-█                                  █
-████████████████████████████████████
+
+ [X]                ITEM NAME     
+
+                                  
+  [LARGE IMAGE]     STATS         
+   halftone            
+                    Damage: 850   
+                    Rate: 120     
+                                  
+       
+    LOCATION                    
+    Hurston - Lorville          
+    [VIEW MAP →]                
+       
+                                  
+  HOW TO OBTAIN:                  
+  Purchase from shop in CBD...    
+                                  
+
 ```
 
 **Design Notes:**
@@ -232,7 +232,7 @@ Think of your screen as a cork board where you're pinning things:
 **Display/Headline:**
 ```
 PATCH 3.23
-└─ Courier New or similar monospace
+ Courier New or similar monospace
    All caps, bold, 72-96px equivalent
    Letter-spacing: slightly tight
 ```
@@ -240,7 +240,7 @@ PATCH 3.23
 **Section Headers:**
 ```
 NEW WEAPONS
-└─ Courier New, bold, 32-48px
+ Courier New, bold, 32-48px
    Slight rotation OK (5-10°)
    May have underline or box
 ```
@@ -248,7 +248,7 @@ NEW WEAPONS
 **Item Names:**
 ```
 Devastator Shotgun
-└─ Arial Bold or Helvetica Bold
+ Arial Bold or Helvetica Bold
    18-24px, mixed case
    Tight leading
 ```
@@ -256,7 +256,7 @@ Devastator Shotgun
 **Body Text:**
 ```
 Purchase from Hurston Security...
-└─ Arial Regular, 14-16px
+ Arial Regular, 14-16px
    Dark gray or black
    Dense paragraphs
 ```
@@ -264,7 +264,7 @@ Purchase from Hurston Security...
 **Handwritten Notes (Optional Accent):**
 ```
 *rare drop!
-└─ Handwritten font or marker style
+ Handwritten font or marker style
    Used sparingly for annotations
    Red ink color
 ```
@@ -673,7 +673,7 @@ Technical diagram, navigation chart, DIY space map
 
 **Error States:**
 - Red border around problem area
-- Red text with icon: "⚠ ERROR"
+- Red text with icon: " ERROR"
 - ALL CAPS error message
 - Feels like stamped "REJECTED"
 
@@ -685,7 +685,7 @@ Technical diagram, navigation chart, DIY space map
 
 **Test Your Design:**
 
-✅ **PASS if...**
+ **PASS if...**
 - You can imagine printing it on a photocopier
 - It looks like something from 1992
 - Color palette is 90% grayscale
@@ -693,7 +693,7 @@ Technical diagram, navigation chart, DIY space map
 - Edges are rough and imperfect
 - There's visible texture everywhere
 
-❌ **FAIL if...**
+ **FAIL if...**
 - It looks like a modern SaaS app
 - There are smooth gradients
 - Corners are rounded
@@ -841,34 +841,34 @@ Technical diagram, navigation chart, DIY space map
 
 ### Rookie Errors
 
-❌ **Over-designing**
+ **Over-designing**
 - Adding too many effects
 - Using all accent colors at once
 - Making everything rotated/diagonal
 - Cramming too much on screen
 
-✅ **Solution:** Simplify. One accent color per screen section. Limit rotation to 1-2 elements.
+ **Solution:** Simplify. One accent color per screen section. Limit rotation to 1-2 elements.
 
-❌ **Going too "clean"**
+ **Going too "clean"**
 - Perfectly aligned everything
 - No texture or grain
 - Smooth, polished look
 
-✅ **Solution:** Add imperfection intentionally. Misalign slightly. Add grain.
+ **Solution:** Add imperfection intentionally. Misalign slightly. Add grain.
 
-❌ **Wrong retro aesthetic**
+ **Wrong retro aesthetic**
 - Neon colors (that's synthwave, not punk)
 - Rounded corners (that's Y2K, not zine)
 - Smooth gradients (that's 2010s, not 90s)
 
-✅ **Solution:** Study actual punk zines. High contrast, rough edges, limited color.
+ **Solution:** Study actual punk zines. High contrast, rough edges, limited color.
 
-❌ **Illegible in pursuit of style**
+ **Illegible in pursuit of style**
 - Text too small
 - Low contrast red on black
 - Overly distressed fonts
 
-✅ **Solution:** Style serves function. If users can't read it, redesign it.
+ **Solution:** Style serves function. If users can't read it, redesign it.
 
 ---
 

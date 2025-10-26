@@ -725,7 +725,7 @@ export default function ProfessionalStantonMap2D({ items = [], onItemClick }) {
                   className="py-2 border-b border-zinc-200 dark:border-zinc-700 cursor-pointer hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors"
                   onClick={() => onItemClick && onItemClick(item.name || item)}
                 >
-                  ▪ {item.name || item}
+                   {item.name || item}
                 </motion.div>
               ))}
             </div>
